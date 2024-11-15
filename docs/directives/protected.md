@@ -1,27 +1,28 @@
 ---
 title: "@protected"
-description: The @protected directive restricts access to fields or nodes based on authentication or authorization.
+description: The @protected directive ensures that a user must be authenticated to access certain data.
 slug: ../protected-directive
 ---
 
-## @protected Directive
-
-The `@protected` directive restricts access to fields or nodes in your GraphQL schema based on authentication or authorization rules. This is essential for securing sensitive data.
-
-### Usage
-
-Here’s an example of how to use the `@protected` directive:
+The `@protected` annotation designates a type or field as protected, meaning that a user must be authenticated to access that data.
 
 ```graphql
 type Query {
-  secretData: String @protected
+  protected: String! @protected
+  protectedType: ProtectedType
+}
+
+type ProtectedType @protected {
+  name: String!
+  nested: String!
 }
 ```
 
-In this example, the `secretData` field is protected, meaning only authenticated users can access it.
+:::important
+To utilize the `@protected` directive, you must link at least one authentication provider in the configuration using the [`@link`](#link-directive) directive (`Htpasswd` or `Jwks`).
+:::
 
-### Parameters
+## How It Works
 
-- You can define custom authentication logic to determine access.
-
-The `@protected` directive helps ensure that sensitive information is only accessible to authorized users, enhancing the security of your GraphQL API.
+- When a field is annotated with `@protected`, an authentication check is performed upon receiving the request. Depending on the authentication result, either the requested data is provided in the response, or an authentication error is returned.
+- If a type is annotated with `@protected`, all fields within that type inherit the protection, requiring user authentication for any field that's queried.

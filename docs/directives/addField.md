@@ -1,12 +1,10 @@
 ---
 title: "@addField"
-description: The @addField directive simplifies data structures and queries by adding, inlining, or flattening fields or nodes within the schema.
-slug: ../add-field-directive
+description: The @addField directive simplifies queries by adding a field that _inline_ or flattens a nested field or node within your schema.
+slug: ../addField-directive
 ---
 
-## @addField Directive
-
-The `@addField` directive simplifies data structures and queries by adding a field that _inlines_ or flattens a nested field or node within your schema. It modifies the schema and the data transformation process, making nested data more accessible and straightforward to present.
+The `@addField` directive simplifies data structures and queries by adding a field that _inline_ or flattens a nested field or node within your schema. It modifies the schema and the data transformation process, making nested data more accessible and straightforward to present.
 
 For instance, consider a schema:
 
@@ -68,7 +66,7 @@ type Query {
 
 In the above example, since we added a `@modify(omit: true)` on the `address` field, the schema no longer includes the `Address` type.
 
-The `@addField` directive also takes care of nullability of the fields. If any of the fields in the path is nullable, the resulting type will be nullable.
+The `@addField` directive also take cares of nullablity of the fields. If any of the fields in the path is nullable, the resulting type will be nullable.
 
 `@addField` also supports indexing, allowing for the specification of an array index for inline inclusion. For instance, if a field `posts` is of type `[Post]`, and the goal is to access the title of the first post, specify the path as [`"posts"`,`"0"`,`"title"`].
 

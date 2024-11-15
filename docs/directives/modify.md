@@ -1,35 +1,35 @@
 ---
 title: "@modify"
-description: The @modify directive enables changes to attributes of fields or nodes in the schema.
+description: The @modify directive allows altering attributes of a field or node within your GraphQL schema.
 slug: ../modify-directive
 ---
 
-## @modify Directive
+The `@modify` directive in GraphQL provides the flexibility to alter the attributes of a field or a node within your GraphQL schema. Here's how you can use this directive:
 
-The `@modify` directive allows you to change attributes of fields or nodes in your GraphQL schema. This can include omitting fields, renaming them, or altering their types.
+## name
 
-### Usage
+You can rename a field or a node in your GraphQL schema using the `name` argument in the `@modify` directive. This can be helpful when the field name in your underlying data source doesn't match the desired field name in your schema. For instance:
 
-Here’s an example of how to use the `@modify` directive:
-
-```graphql
+```graphql showLineNumbers
 type User {
-  id: Int!
-  name: String!
-  email: String!
-  address: Address @modify(omit: true)
-}
-
-type Address {
-  street: String!
-  city: String!
+  id: Int! @modify(name: "userId")
 }
 ```
 
-In this example, the `@modify(omit: true)` directive is applied to the `address` field, which means it will not be included in the generated schema for the `User` type.
+`@modify(name: "userId")` informs GraphQL to present the field known as `id` in the underlying data source as `userId` in your schema.
 
-### Parameters
+## omit
 
-- `omit`: A boolean value that indicates whether to exclude the field from the schema.
+You can exclude a field or a node from your GraphQL schema using the `omit` argument in the `@modify` directive. This can be useful if you want to keep certain data hidden from the client. For instance:
 
-The `@modify` directive provides flexibility in shaping your GraphQL schema according to your needs, allowing for cleaner and more efficient data structures.
+```graphql showLineNumbers
+type User {
+  id: Int! @modify(omit: true)
+}
+```
+
+`@modify(omit: true)` instructs GraphQL to exclude the `id` field from the schema, making it inaccessible to the client.
+
+:::tip
+`@omit` is a standalone directive and is an alias/shorthand for `modify(omit: true)` checkout [documentation](/docs/directives.md#omit-directive)
+:::

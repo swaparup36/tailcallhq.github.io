@@ -1,27 +1,73 @@
 ---
 title: "@js"
-description: The @js directive allows embedding JavaScript functions within the GraphQL schema.
+description: The @js directive allows you to use JavaScript functions to resolve fields in your GraphQL schema.
+slug: ../js-directive
 ---
 
-## @js Directive
+The `@js` directive allows you to use JavaScript functions to resolve fields in your GraphQL schema. This can be useful for custom data transformations or complex field resolutions.
 
-The `@js` directive enables you to embed JavaScript functions within your GraphQL schema. This is useful for executing custom logic during data resolution.
+## Usage
 
-### Usage
+The `@js` directive is used to specify a JavaScript function that will resolve the value of a field. The directive takes
+a single argument, `name`, which is the name of the JavaScript function to be used.
 
-Here’s an example of how to use the `@js` directive:
+## Syntax
 
-```graphql
-type Query {
-  calculateSum(a: Int!, b: Int!): Int
-    @js(function: "sumFunction")
+```graphql showLineNumbers
+fieldName: FieldType @js(name: "functionName")
+```
+
+## Example
+
+Let's consider a `foo.js` file which contains a `resolve` function:
+
+```js
+function resolve(val) {
+  let json = JSON.parse(val)
+  return JSON.stringify(json.id)
 }
 ```
 
-In this example, the `calculateSum` field calls a JavaScript function named `sumFunction` to compute the sum of two integers.
+Here is an example of how the `@js` directive is used within a GraphQL schema:
 
-### Parameters
+```gql showLineNumbers
+schema
+  @link(type: Script, src: "./scripts/foo.js")
+  @server(port: 8000)
+  @upstream(httpCache: true) {
+  query: Query
+}
 
-- `function`: The name of the JavaScript function to execute.
+type Query {
+  posts: [Post]
+    @http(url: "https://jsonplaceholder.typicode.com/posts")
+}
 
-The `@js` directive provides flexibility in your GraphQL schema, allowing for custom logic to be executed during data resolution.
+type Post {
+  id: Int!
+  idx: Int! @js(name: "resolve")
+  userId: Int!
+  title: String!
+  body: String!
+}
+```
+
+## Error Handling
+
+When using the `@js` directive, it is important to handle errors within your JavaScript functions. For example, you can use try-catch blocks to catch and handle any errors that occur during the resolution process.
+
+```javascript
+function resolve(val) {
+  try {
+    let json = JSON.parse(val)
+    return JSON.stringify(json.id)
+  } catch (error) {
+    console.error("Error resolving value:", error)
+    throw new Error("Failed to resolve value")
+  }
+}
+```
+
+## Performance Considerations
+
+When using the `@js` directive, keep in mind that JavaScript functions can introduce performance overhead, especially if they perform complex operations or are called frequently. To minimize performance impact, ensure that your functions are optimized and avoid unnecessary computations.

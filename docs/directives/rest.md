@@ -1,34 +1,52 @@
 ---
 title: "@rest"
-description: The @rest directive allows exposing REST endpoints on top of GraphQL.
+description: The @rest directive maps fields to REST API endpoints, allowing GraphQL to serve as a layer over RESTful services.
 slug: ../rest-directive
 ---
 
-## @rest Directive
+API orchestration is essential, yet not all can adopt GraphQL despite its benefits. The Tailcall DSL feature leverages GraphQL at compile time to generate REST endpoints, aligning with traditional API infrastructure like CDNs and Gateways.
 
-The `@rest` directive enables you to expose REST endpoints within your GraphQL schema. This allows you to integrate existing REST APIs into your GraphQL API seamlessly.
+## Usage
 
-### Usage
+- **method**: Specifies the HTTP method (GET, POST, etc.).
+- **path**: Sets the endpoint URL, with support for dynamic values from query arguments.
+- **query**: Defines the query parameters as key-value pairs.
 
-Here’s an example of how to use the `@rest` directive:
+## Example
+
+Define GraphQL types and queries, using the `@rest` directive to map fields to REST API endpoints.
+
+`schema.graphql`
 
 ```graphql
-type Query {
-  posts: [Post]
-    @rest(url: "https://jsonplaceholder.typicode.com/posts")
+schema
+  @link(type: Operation, src: "user-operation.graphql") {
+  query: Query
 }
 
-type Post {
+type Query {
+  user(id: Int!): User
+    @rest(method: "GET", path: "/users/{{.args.id}}")
+}
+
+type User {
   id: Int!
-  title: String!
-  body: String!
+  name: String!
+  email: String!
 }
 ```
 
-In this example, the `posts` field fetches data from a REST API endpoint. The `url` parameter specifies the endpoint to call.
+`user-operation.graphql`
 
-### Parameters
+```graphql
+query ($id: Int!) @rest(method: GET, path: "/user/$id") {
+  user(id: $id) {
+    id
+    name
+  }
+}
+```
 
-- `url`: The URL of the REST API endpoint to fetch data from.
+![REST Demo](/images/docs/rest-user.png)
 
-The `@rest` directive simplifies the integration of REST APIs into your GraphQL schema, allowing for a unified data-fetching approach.
+This example demonstrates how to define a simple query to fetch user data from a REST endpoint using the `@rest` directive. By leveraging `@rest`, GraphQL can serve as a layer over RESTful services, combining REST's simplicity with GraphQL's flexibility.

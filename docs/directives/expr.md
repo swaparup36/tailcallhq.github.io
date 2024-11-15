@@ -1,27 +1,72 @@
 ---
 title: "@expr"
-description: The @expr directive allows embedding of a constant response within the schema.
+description: The @expr directive allows you to embed data directly into your schema.
 slug: ../expr-directive
 ---
 
-## @expr Directive
+The `@expr` directive in GraphQL is a powerful tool for embedding data directly into your schema, offering two primary functionalities:
 
-The `@expr` directive allows you to embed a constant response within your GraphQL schema. This is useful for scenarios where the response is unchanging.
+## Static
 
-### Usage
-
-Here’s an example of how to use the `@expr` directive:
+This feature allows for the inclusion of a constant response within the schema definition itself. It is useful for scenarios where the response is unchanging. e.g:
 
 ```graphql
+schema {
+  query: Query
+}
+
 type Query {
-  greeting: String @expr(body: {value: "Hello, World!"})
+  user: User @expr(body: {name: "John", age: 12})
+}
+
+type User {
+  name: String
+  age: Int
 }
 ```
 
-In this example, the `greeting` field always returns the string "Hello, World!".
+The `@expr` directive also checks the provided value at compile time to ensure it matches the field's schema. If not, the console displays a descriptive error message.
 
-### Parameters
+## Dynamic
 
-- `body`: The response body to be returned.
+Beyond static data embedding, the `@expr` directive extends its utility to support dynamic data injection through Mustache template syntax. This feature enables the use of placeholders within the constant data, which are then dynamically replaced with actual values at runtime. It supports both scalar values and complex objects, including lists and nested objects, offering flexibility in tailoring responses to specific needs. e.g:
 
-The `@expr` directive provides a simple way to include static responses in your GraphQL schema, enhancing flexibility and ease of use.
+```graphql
+schema {
+  query: Query
+}
+
+type Query {
+  user: User
+    @expr(
+      body: {
+        name: "John"
+        workEmail: "john@xyz.com"
+        personalEmail: "john@xyz.com"
+      }
+    )
+}
+
+type User {
+  name: String
+  age: Int
+  personalEmail: String
+  workEmail: String
+  emails: Emails
+    @expr(
+      body: {
+        emails: {
+          workEmail: "{{.value.workEmail}}"
+          personalEmail: "{{.value.personalEmail}}"
+        }
+      }
+    )
+}
+
+type Emails {
+  workEmail: String
+  personalEmail: String
+}
+```
+
+In this example, the `@expr` directive dynamically generate an `Emails` object based on the provided template data. The placeholders within the template (`{{.value.workEmail}}` and `{{.value.personalEmail}}`) gets replaced with the actual values specified in the `User` type, allowing for dynamic content generation while still adhering to the schema's structure.
