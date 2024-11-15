@@ -13,7 +13,8 @@ Here’s an example of how to use the `@js` directive:
 
 ```graphql
 type Query {
-  calculateSum(a: Int!, b: Int!): Int @js(function: "sumFunction")
+  calculateSum(a: Int!, b: Int!): Int
+    @js(function: "sumFunction")
 }
 ```
 

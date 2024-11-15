@@ -14,7 +14,11 @@ Consider the following example:
 ```graphql
 type Query {
   user(id: Int!): User
-    @grpc(service: "UserService", method: "GetUser", request: "{ id: {{.args.id}} }")
+    @grpc(
+      service: "UserService"
+      method: "GetUser"
+      request: "{ id: {{.args.id}} }"
+    )
 }
 
 type User {

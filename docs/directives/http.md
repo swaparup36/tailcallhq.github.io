@@ -14,7 +14,9 @@ Consider the following example:
 ```graphql
 type Query {
   user(id: Int!): User
-    @http(url: "https://jsonplaceholder.typicode.com/users/{{.args.id}}")
+    @http(
+      url: "https://jsonplaceholder.typicode.com/users/{{.args.id}}"
+    )
 }
 
 type User {

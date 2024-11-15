@@ -14,7 +14,8 @@ Here’s an example of how to use the `@rest` directive:
 
 ```graphql
 type Query {
-  posts: [Post] @rest(url: "https://jsonplaceholder.typicode.com/posts")
+  posts: [Post]
+    @rest(url: "https://jsonplaceholder.typicode.com/posts")
 }
 
 type Post {

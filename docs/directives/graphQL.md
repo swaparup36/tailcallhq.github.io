@@ -15,7 +15,10 @@ Consider the following example:
 ```graphql
 type Query {
   user(id: Int!): User
-    @graphQL(url: "https://api.example.com/graphql", query: "{ user(id: {{.args.id}}) { id name email } }")
+    @graphQL(
+      url: "https://api.example.com/graphql"
+      query: "{ user(id: {{.args.id}}) { id name email } }"
+    )
 }
 ```
 

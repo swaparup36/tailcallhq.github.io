@@ -15,10 +15,20 @@ Here’s an example of how to use the `@call` directive:
 ```graphql
 type Mutation {
   createUser(input: UserInput): User
-    @http(url: "https://api.example.com/users", method: "POST")
+    @http(
+      url: "https://api.example.com/users"
+      method: "POST"
+    )
 
   registerUser(input: UserInput): User
-    @call(steps: [{mutation: "createUser", args: {input: "{{.args.input}}"}}])
+    @call(
+      steps: [
+        {
+          mutation: "createUser"
+          args: {input: "{{.args.input}}"}
+        }
+      ]
+    )
 }
 ```
 
