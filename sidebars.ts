@@ -25,6 +25,7 @@ const sidebars: SidebarsConfig = {
       label: "Directives",
       collapsed: false,
       items: [
+        "directives",
         "directives/addField",
         "directives/cache",
         "directives/call",
