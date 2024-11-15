@@ -1,7 +1,7 @@
 ---
 title: "@addField"
 description: The @addField directive simplifies data structures and queries by adding, inlining, or flattening fields or nodes within the schema.
-slug: add-field-directive
+slug: ../add-field-directive
 ---
 
 ## @addField Directive

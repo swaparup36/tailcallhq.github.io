@@ -1,7 +1,7 @@
 ---
 title: "@link"
 description: The @link directive imports external resources into the GraphQL schema.
-slug: link-directive
+slug: ../link-directive
 ---
 
 ## @link Directive

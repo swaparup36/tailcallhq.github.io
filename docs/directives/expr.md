@@ -1,7 +1,7 @@
 ---
 title: "@expr"
 description: The @expr directive allows embedding of a constant response within the schema.
-slug: expr-directive
+slug: ../expr-directive
 ---
 
 ## @expr Directive
