@@ -1,6 +1,7 @@
 ---
 title: "@upstream"
 description: The @upstream directive controls aspects of the upstream server connection.
+slug: upstream-directive
 ---
 
 ## @upstream Directive

@@ -1,6 +1,7 @@
 ---
 title: "@protected"
 description: The @protected directive restricts access to fields or nodes based on authentication or authorization.
+slug: protected-directive
 ---
 
 ## @protected Directive

@@ -1,6 +1,7 @@
 ---
 title: "@call"
 description: The @call directive invokes a query or mutation from another query or mutation field.
+slug: call-directive
 ---
 
 ## @call Directive

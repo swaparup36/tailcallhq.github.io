@@ -1,6 +1,7 @@
 ---
 title: "@omit"
 description: The @omit directive excludes fields or nodes from the generated schema.
+slug: omit-directive
 ---
 
 ## @omit Directive

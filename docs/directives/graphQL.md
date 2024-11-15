@@ -1,6 +1,7 @@
 ---
 title: "@graphQL"
 description: The @graphQL directive resolves a field or node by a GraphQL API.
+slug: graphql-directive
 ---
 
 ## @graphQL Directive

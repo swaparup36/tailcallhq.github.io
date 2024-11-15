@@ -1,6 +1,7 @@
 ---
 title: "@cache"
 description: The @cache directive provides a mechanism for caching results in a GraphQL schema, optimizing performance by reducing unnecessary data fetches.
+slug: cache-directive
 ---
 
 ## @cache Directive

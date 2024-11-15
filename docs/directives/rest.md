@@ -1,6 +1,7 @@
 ---
 title: "@rest"
 description: The @rest directive allows exposing REST endpoints on top of GraphQL.
+slug: rest-directive
 ---
 
 ## @rest Directive

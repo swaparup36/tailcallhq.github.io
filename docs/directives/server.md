@@ -1,6 +1,7 @@
 ---
 title: "@server"
 description: The @server directive provides server configurations for GraphQL behavior tuning.
+slug: server-directive
 ---
 
 ## @server Directive

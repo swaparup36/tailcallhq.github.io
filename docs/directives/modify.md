@@ -1,6 +1,7 @@
 ---
 title: "@modify"
 description: The @modify directive enables changes to attributes of fields or nodes in the schema.
+slug: modify-directive
 ---
 
 ## @modify Directive
