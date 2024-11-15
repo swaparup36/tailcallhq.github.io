@@ -1,6 +1,7 @@
 ---
 title: "@telemetry"
 description: The @telemetry directive integrates with OpenTelemetry for observability in GraphQL services.
+slug: ../telemetry-directive
 ---
 
 ## @telemetry Directive
