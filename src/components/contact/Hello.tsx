@@ -61,66 +61,16 @@ const Hello = (): JSX.Element => {
         </Heading>
 
         <div className="flex flex-col justify-between space-y-SPACE_07 w-full sm:w-fit">
-          <div className="flex flex-col space-y-SPACE_02">
-            <label id="email" className="text-content-tiny sm:text-content-small font-medium">
-              Email
-            </label>
-            <input
-              name="email"
-              type="email"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value)
-                if (!isValid) setIsValid(false)
-              }}
-              className={`border border-solid border-tailCall-border-light-500 rounded-lg font-space-grotesk h-11 w-[95%] sm:w-[480px] 
-              p-SPACE_03 text-content-small outline-none focus:border-x-tailCall-light-700  ${
-                isValid ? "is-valid" : "is-invalid"
-              }`}
-              placeholder="you@company.com"
-            />
-            {!isValid && <div className="text-red-400">Please enter a valid email.</div>}
-          </div>
-
-          <div className="flex flex-col space-y-SPACE_02">
-            <p className="text-content-tiny sm:text-content-small font-medium mb-0">
-              What stage of GraphQL are you in?
-            </p>
-            <div className="space-y-SPACE_03 radio-group">
-              {radioOptions.map((option) => (
-                <div className="flex items-center space-x-SPACE_02 " key={option.id}>
-                  <input
-                    type="radio"
-                    name={option.name}
-                    id={option.id}
-                    value={option.value}
-                    checked={stage === option.value}
-                    onChange={() => setStage(option.value)}
-                    className="radio-button"
-                  />
-                  <label htmlFor={option.id} className="text-content-small radio-label cursor-pointer">
-                    {option.name}
-                  </label>
-                </div>
-              ))}
-            </div>
-            {!isStageValid && <div className="text-red-400">Please select your stage of GraphQL.</div>}
-          </div>
-
-          <div className="flex flex-col space-y-SPACE_02">
-            <label id="company" htmlFor="" className="text-content-tiny sm:text-content-small font-medium">
-              Tell us about your company
-            </label>
-            <textarea
-              name="company"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              className="rounded-lg font-space-grotesk h-32 w-[95%] sm:w-[480px] border border-tailCall-light-400 p-SPACE_03 text-content-small outline-none focus:border-x-tailCall-light-700"
-              placeholder="Leave us a message..."
-            />
-          </div>
-
-          <LinkButton theme={Theme.Dark} onClick={sendData} title="Send message" disabled={!(email && stage)} />
+          <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLSfn6qZlC7ST_LyKmGYPrZEBckQyQm2WNhME9CPJktvR--1mow/viewform?embedded=true"
+            width="640"
+            height="1000"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+          >
+            Loading…
+          </iframe>
         </div>
       </div>
     </section>
