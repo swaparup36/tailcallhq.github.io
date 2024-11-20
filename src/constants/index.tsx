@@ -1,4 +1,5 @@
 import React from "react"
+import {pageLinks} from "./routes"
 
 export const githubRepoURL = "https://github.com/tailcallhq/tailcall"
 export const tailCallBenchmarkUrl = "https://github.com/tailcallhq/graphql-benchmarks#benchmark-results"
@@ -6,6 +7,10 @@ export const tailCallBlogUrl = "https://blog.tailcall.run/"
 export const codeSandboxUrl = "https://codesandbox.io/p/github/tailcallhq/tailcall-sandbox/main"
 export const zapierLink = "https://hooks.zapier.com/hooks/catch/2793322/3a1gxp2/"
 export const playgroundAdsConversionId = "AW-16578154380/3FH_CJrawsgZEIyfiuE9"
+
+export enum cookieConstants {
+  USER_CONSENT = "userConsent",
+}
 
 export const algoliaConstants = {
   categoryFacet: "category",
@@ -586,3 +591,44 @@ export const blogTagsMapping: Record<string, BlogTag[]> = {
   ],
   "Development Practices": [{label: "Best Practices", permalink: "/blog/tags/best-practices"}],
 }
+
+export enum CookiePreferenceCategory {
+  NECESSARY = "Necessary",
+  ANALYTICS = "Analytics",
+  PREFERENCE = "Preference",
+  MARKETING = "Marketing",
+}
+
+export const reb2bScriptContent = `
+!function () {var reb2b = window.reb2b = window.reb2b || [];
+    if (reb2b.invoked) return;reb2b.invoked = true;reb2b.methods = ["identify", "collect"];
+    reb2b.factory = function (method) {return function () {var args = Array.prototype.slice.call(arguments);
+    args.unshift(method);reb2b.push(args);return reb2b;};};
+    for (var i = 0; i < reb2b.methods.length; i++) {var key = reb2b.methods[i];reb2b[key] = reb2b.factory(key);}
+    reb2b.load = function (key) {var script = document.createElement("script");script.type = "text/javascript";script.async = true;
+    script.src = "https://s3-us-west-2.amazonaws.com/b2bjsstore/b/" + key + "/reb2b.js.gz";
+    var first = document.getElementsByTagName("script")[0];
+    first.parentNode.insertBefore(script, first);};
+    reb2b.SNIPPET_VERSION = "1.0.1";reb2b.load("0OV0VHL3P56Z");}();
+`
+export const gtagScriptContent = `
+function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-JEP3QDWT0G",{})
+`
+export const footerLinks: FooterLink[] = [
+  {
+    name: "Documentation",
+    link: pageLinks.docs,
+  },
+  {
+    name: "Blog",
+    link: tailCallBlogUrl,
+  },
+  {
+    name: "Contributors",
+    link: pageLinks.contributors,
+  },
+  {
+    name: "Privacy Policy",
+    link: pageLinks.privacyPolicy,
+  },
+]

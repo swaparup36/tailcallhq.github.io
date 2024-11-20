@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from "react"
+import React, {useEffect, useMemo, useState} from "react"
 import {GraphiQL} from "graphiql"
 import {analyticsHandler, isValidURL, sendConversionEvent} from "@site/src/utils"
-import {playgroundAdsConversionId} from "@site/src/constants"
+import {CookiePreferenceCategory, playgroundAdsConversionId} from "@site/src/constants"
 import "graphiql/graphiql.css"
 import "../../css/graphiql.css"
 import {type FetcherParams, FetcherOpts} from "@graphiql/toolkit"
+import {useCookieConsent} from "@site/src/utils/hooks/useCookieConsent"
 
 const useDebouncedValue = (inputValue: string, delay: number) => {
   const [debouncedValue, setDebouncedValue] = useState(inputValue)
@@ -31,6 +32,9 @@ const Playground = () => {
   )
   const [inputValue, setInputValue] = useState<string>(initialApiEndpoint.toString())
 
+  const {getCookieConsent} = useCookieConsent()
+  const cookieConsent = getCookieConsent()
+
   const debouncedApiEndpoint = useDebouncedValue(inputValue, 500)
   const apiEndpointInputClasses = `border border-solid border-tailCall-border-light-500 rounded-lg font-space-grotesk h-11 w-[100%]
     p-SPACE_04 text-content-small outline-none focus:border-x-tailCall-light-700`
@@ -56,6 +60,27 @@ const Playground = () => {
     return await response.json()
   }
 
+  const emptyGraphiqlStorageObject = {
+    getItem: (): null => null,
+    setItem: (): void => undefined,
+    removeItem: (): void => undefined,
+    clear: (): void => undefined,
+    length: 0,
+  }
+
+  const graphiqlStorage = useMemo(() => {
+    if (
+      cookieConsent?.accepted &&
+      (!cookieConsent?.preferences || cookieConsent?.preferences?.includes(CookiePreferenceCategory.PREFERENCE))
+    ) {
+      // Defaults to local storage
+      return undefined
+    }
+
+    // Block storing graphiql data in local storage if user denies cookie consent
+    return emptyGraphiqlStorageObject
+  }, [cookieConsent])
+
   return (
     <div className="min-h-[90vh]">
       {typeof window !== "undefined" && (
@@ -71,7 +96,7 @@ const Playground = () => {
             />
           </div>
           <div className="flex my-SPACE_03">
-            <GraphiQL fetcher={graphQLFetcher}>
+            <GraphiQL fetcher={graphQLFetcher} storage={graphiqlStorage}>
               <GraphiQL.Logo>
                 <></>
               </GraphiQL.Logo>
