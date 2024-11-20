@@ -6,7 +6,6 @@ const ContactPage = (): JSX.Element => {
   return (
     <>
       <Hello />
-      
     </>
   )
 }
