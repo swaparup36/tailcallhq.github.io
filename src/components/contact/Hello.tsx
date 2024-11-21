@@ -2,9 +2,9 @@ import React, {useCallback, useState} from "react"
 import Heading from "@theme/Heading"
 import toast, {Toaster} from "react-hot-toast"
 import Grid from "@site/static/images/about/grid-large.svg"
-import LinkButton from "../shared/LinkButton"
 import {analyticsHandler, validateEmail} from "@site/src/utils"
-import {Theme, radioOptions, zapierLink} from "@site/src/constants"
+import {zapierLink} from "@site/src/constants"
+import {LoaderCircle} from "lucide-react"
 
 const Hello = (): JSX.Element => {
   const [email, setEmail] = useState<string>("")
@@ -12,6 +12,7 @@ const Hello = (): JSX.Element => {
   const [stage, setStage] = useState<string>("")
   const [isValid, setIsValid] = useState<boolean>(true)
   const [isStageValid, setIsStageValid] = useState<boolean>(true)
+  const [showLoader, setShowLoader] = useState(true)
 
   const sendData = useCallback(async () => {
     if (!email || !stage) {
@@ -60,17 +61,20 @@ const Hello = (): JSX.Element => {
           Say <span className="bg-tailCall-yellow rounded sm:rounded-2xl px-SPACE_01 sm:px-SPACE_02">hello</span> to us!
         </Heading>
 
-        <div className="flex flex-col justify-between space-y-SPACE_07 w-full sm:w-fit">
+        <div className="flex flex-col justify-between space-y-SPACE_07 w-full md:w-fit">
+          {showLoader && (
+            <div className="w-full md:w-[640px] h-[80vh] flex justify-center items-center">
+              <LoaderCircle className="animate-spin" size={40} />
+            </div>
+          )}
           <iframe
             src="https://docs.google.com/forms/d/e/1FAIpQLSfn6qZlC7ST_LyKmGYPrZEBckQyQm2WNhME9CPJktvR--1mow/viewform?embedded=true"
-            width="640"
+            className="w-full md:w-[640px]"
             height="1000"
-            frameborder="0"
-            marginheight="0"
-            marginwidth="0"
-          >
-            Loading…
-          </iframe>
+            onLoad={() => {
+              setShowLoader(false)
+            }}
+          ></iframe>
         </div>
       </div>
     </section>
