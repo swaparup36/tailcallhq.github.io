@@ -66,6 +66,9 @@ module.exports = {
         SPACE_20: "80px",
         SPACE_21: "160px",
       },
+      screens: {
+        "3xl": "2200px",
+      },
     },
     fontFamily: {
       "space-grotesk": ["Space Grotesk", "sans-serif"],
@@ -174,6 +177,14 @@ module.exports = {
           lineHeight: "20.73px",
           fontWeight: "400",
           letterSpacing: "-4%",
+        },
+      ],
+      "content-mini": [
+        "12px",
+        {
+          lineHeight: "16px",
+          fontWeight: "400",
+          letterSpacing: "-2%",
         },
       ],
     },

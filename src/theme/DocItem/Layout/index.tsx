@@ -1,7 +1,7 @@
 import React from "react"
 import clsx from "clsx"
 import {useWindowSize} from "@docusaurus/theme-common"
-import {useDoc} from "@docusaurus/theme-common/internal"
+import {useDoc} from "@docusaurus/plugin-content-docs/client"
 import DocItemPaginator from "@theme/DocItem/Paginator"
 import DocVersionBanner from "@theme/DocVersionBanner"
 import DocVersionBadge from "@theme/DocVersionBadge"
@@ -12,7 +12,6 @@ import DocItemContent from "@theme/DocItem/Content"
 import DocBreadcrumbs from "@theme/DocBreadcrumbs"
 import styles from "./styles.module.css"
 import Giscus from "@giscus/react"
-import {useColorMode} from "@docusaurus/theme-common"
 
 interface DocItemLayoutProps {
   children: React.JSX.Element
@@ -34,7 +33,6 @@ function useDocTOC() {
 
 export default function DocItemLayout({children}: DocItemLayoutProps) {
   const docTOC = useDocTOC()
-  const {colorMode} = useColorMode()
   const giscus = (
     <div className="min-h-[450px]">
       <hr />
@@ -49,7 +47,7 @@ export default function DocItemLayout({children}: DocItemLayoutProps) {
         reactionsEnabled="1"
         emitMetadata="1"
         inputPosition="top"
-        theme={colorMode}
+        theme={"https://tailcall.run/css/giscus-theme.css"}
         lang="en"
         strict="0"
         loading="lazy"

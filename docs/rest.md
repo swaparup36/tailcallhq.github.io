@@ -24,15 +24,15 @@ There are three main steps to this process:
 ### Step 1: Define your GraphQL configuration
 
 ```graphql
-schema
-  @upstream(
-    baseURL: "https://jsonplaceholder.typicode.com"
-  ) {
+schema {
   query: Query
 }
 
 type Query {
-  post(id: Int!): Post @http(path: "/posts/{{.args.id}}")
+  post(id: Int!): Post
+    @http(
+      url: "https://jsonplaceholder.typicode.com/posts/{{.args.id}}"
+    )
 }
 
 type Post {
@@ -40,7 +40,10 @@ type Post {
   id: Int
   title: String
   body: String
-  user: User @http(path: "/users/{{.value.userId}}")
+  user: User
+    @http(
+      url: "https://jsonplaceholder.typicode.com/users/{{.value.userId}}"
+    )
 }
 
 type User {
@@ -74,7 +77,7 @@ query ($id: Int!) @rest(method: GET, path: "/post/$id") {
 }
 ```
 
-to know more about the `@rest` directive, please refer to the [Tailcall GraphQL Directives](/docs/directives.md#rest-directive).
+to know more about the `@rest` directive, please refer to the [Tailcall GraphQL Directives](./directives/rest.md).
 
 ### Step 3: Link the operation to the main config file
 
@@ -82,7 +85,6 @@ checkout the `@link` directive in the config snippet below to link the operation
 
 ```graphql
 schema
-  @upstream(baseURL: "https://jsonplaceholder.typicode.com")
   #highlight-start
   @link(type: Operation, src: "user-operation.graphql") {
   #highlight-end
@@ -90,7 +92,7 @@ schema
 }
 ```
 
-To know more about the `@link` directive, please refer to the [Tailcall GraphQL Directives](/docs/directives.md#link-directive).
+To know more about the `@link` directive, please refer to the [Tailcall GraphQL Directives](./directives/link.md).
 
 #### Response
 

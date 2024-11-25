@@ -34,7 +34,7 @@ This guide illustrates how to configure `tailcall` to send usage metrics to [Apo
 
       ![local-schema.png](../static/images/apollo-studio/local-schema.png)
 
-You have now created a Monolith graph in Apollo Studio. The next step is to configure `tailcall` to use the `APOLLO_API_KEY` and `APOLLO_GRAPH_REF`. Follow detailed instructions [here](/docs/directives.md#telemetry-directive).
+You have now created a Monolith graph in Apollo Studio. The next step is to configure `tailcall` to use the `APOLLO_API_KEY` and `APOLLO_GRAPH_REF`. Follow detailed instructions [here](./directives/telemetry.md).
 
 ## Checking the metrics in Apollo Studio
 
@@ -45,9 +45,6 @@ To see the metrics for you queries follow these instructions:
    ```graphql
    schema
      @server(port: 8000)
-     @upstream(
-       baseURL: "http://jsonplaceholder.typicode.com"
-     )
      @telemetry(
        export: {
          apollo: {
@@ -60,7 +57,10 @@ To see the metrics for you queries follow these instructions:
    }
 
    type Query {
-     posts: [Post] @http(path: "/posts")
+     posts: [Post]
+       @http(
+         url: "http://jsonplaceholder.typicode.com/posts"
+       )
    }
 
    type Post {

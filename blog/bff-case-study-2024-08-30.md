@@ -5,6 +5,7 @@ hide_table_of_contents: true
 slug: dream11-graphql-case-study
 image: /images/blog/dream11-graphql-case-study.png
 category: Case Study
+featured: true
 tags:
   [
     GraphQL,
@@ -13,18 +14,14 @@ tags:
     Scalability,
   ]
 authors:
-  - name: Amit Singh
-    title: Head of Growth and Strategy @ Tailcall | Ex Director of Engineering @ Dream11
-    url: https://github.com/amitksingh1490
-    image_url: https://avatars.githubusercontent.com/u/23661702?v=5
   - name: Tushar Mathur
     title: CEO @ Tailcall | | Ex VP of Engineering @ Dream11
     url: https://github.com/tusharmath
     image_url: https://avatars.githubusercontent.com/u/194482?v=4
----
-
-import CallToAction from '../src/components/blog/call-to-action.tsx';
-
+  - name: Amit Singh
+    title: Head of Growth and Strategy @ Tailcall | Ex Director of Engineering @ Dream11
+    url: https://github.com/amitksingh1490
+    image_url: https://avatars.githubusercontent.com/u/23661702?v=5
 ---
 
 **Picture this:**
@@ -78,13 +75,17 @@ Now, you might be scratching your head, wondering, "Why put an API Gateway after
 
 This architecture was our trusted companion for years, scaling effortlessly to serve tens of millions of users. But as with any great journey, we eventually hit a new challenge: the performance of our GraphQL server started to feel the strain of our massive success.
 
-<CallToAction
-title="Curious about how we turbocharged our GraphQL server?"
-subtitle= "Join us at GraphQL Conference 2024 for the thrilling conclusion!"
-buttonText="Save Your Spot"
-href="https://graphql.org/conf/2024/schedule/870876ffad45b79d11e09393e7f22587/"
-backgroundImageSrc="/icons/basic/bg-tailcall.svg"
-/>
+<div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', maxWidth:'100%'}}>
+  <iframe
+    src="https://www.youtube.com/embed/Esb7oQ0PuXw?si=kuSvBFaUki2GYJie&rel=0"
+    frameBorder="0"
+    title="Lessons for Scaling GraphQL"
+    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerPolicy="strict-origin-when-cross-origin"
+    allowFullScreen
+  ></iframe>
+</div>
 
 ## The GraphQL Advantage: Dream11's Secret Weapon
 

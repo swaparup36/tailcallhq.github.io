@@ -230,14 +230,11 @@ When a client sends a GraphQL query, the server resolves each field in the query
 By setting up a GraphQL server, defining a schema, and attaching resolvers, you can begin building powerful and flexible APIs that provide clients with the precise data they need. This foundational knowledge forms the basis for more advanced GraphQL development, including integrating GraphQL with existing APIs, handling complex data relationships, and optimizing API performance.
 
 Lets attach resolvers to the schema we defined in the previous section using Tailcall's GraphQL Configuration:
-We will add the resolvers with [`@http`](/docs/tailcall-dsl-graphql-custom-directives/#http-directive) directive:
+We will add the resolvers with [`@http`](/docs/http-directive) directive:
 
 ```graphql
-schema
+schema {
   # highlight-start
-  @upstream(
-    baseURL: "http://jsonplaceholder.typicode.com"
-  ) {
   # highlight-end
   query: Query
 }
@@ -250,7 +247,10 @@ type Post {
 
 type Query {
   # highlight-start
-  post(id: ID!): Post @http(path: "/posts/{{.args.id}}")
+  post(id: ID!): Post
+    @http(
+      url: "http://jsonplaceholder.typicode.com/posts/{{.args.id}}"
+    )
   # highlight-end
 }
 ```
@@ -276,10 +276,7 @@ Use GraphQL's powerful type system to define clear relationships between your da
 Here's a code snippet illustrating how to handle data relationships in GraphQL:
 
 ```graphql
-schema
-  @upstream(
-    baseURL: "http://jsonplaceholder.typicode.com"
-  ) {
+schema {
   query: Query
 }
 type User {
@@ -294,12 +291,18 @@ type Post {
   content: String!
   userId: ID!
   # highlight-start
-  author: User! @http(path: "/users/{{.value.userId}}")
+  author: User!
+    @http(
+      url: "http://jsonplaceholder.typicode.com/users/{{.value.userId}}"
+    )
   # highlight-end
 }
 
 type Query {
-  post(id: ID!): Post! @http(path: "/posts/{{.args.id}}")
+  post(id: ID!): Post!
+    @http(
+      url: "http://jsonplaceholder.typicode.com/posts/{{.args.id}}"
+    )
 }
 ```
 

@@ -8,6 +8,7 @@ authors:
 description: A deep dive into the implementation details of the N+1 tracker
 slug: tailcall-n+1-identification-algorithm
 image: /images/blog/tailcall-n+1-identification-algorithm.png
+featured: true
 ---
 
 As a developer working with GraphQL, you're likely familiar with the concept of N+1 issues. If not, you're in for a treat - check out our [N+1 guide!](/docs/graphql-n-plus-one-problem-solved-tailcall)
@@ -78,15 +79,13 @@ Now, yes all of these issues can be solved by better coding practices, using a [
 With a configuration its a completely different story, take the below Tailcall configuration for example:
 
 ```graphql
-schema
-  @upstream(
-    baseURL: "https://jsonplaceholder.typicode.com"
-  ) {
+schema {
   query: Query
 }
 
 type Query {
-  posts: [Post] @http(path: "/posts")
+  posts: [Post]
+    @http(url: "https://jsonplaceholder.typicode.com/posts")
 }
 
 type Post {
@@ -94,7 +93,10 @@ type Post {
   userId: ID!
   title: String!
   body: String!
-  user: User @http(path: "/users{{.value.userId}}")
+  user: User
+    @http(
+      url: "https://jsonplaceholder.typicode.com/users{{.value.userId}}"
+    )
 }
 
 type User {
@@ -116,7 +118,7 @@ Now, here's where it gets fascinating. We use a Depth-First Search (DFS) algorit
 
 1. Initialize two variables to track the currently traversed `path` and `visited` fields so that we can avoid cycles.
 2. Start at the root query and begin traversing the graph data structure.
-3. For each field in the current node, check if it has a resolver and is not batched. We know if the node contains a resolver if that node has a [`@http`](/docs/tailcall-dsl-graphql-custom-directives#http-directive) or a [`@grpc`](/docs/tailcall-dsl-graphql-custom-directives#grpc-directive). Tailcall supports powerful batching primitives and if a field uses a Batch API, then that resolver is whitelisted and dropped from the list of potential N+1 candidates.
+3. For each field in the current node, check if it has a resolver and is not batched. We know if the node contains a resolver if that node has a [`@http`](/docs/http-directive) or a [`@grpc`](/docs/grpc-directive). Tailcall supports powerful batching primitives and if a field uses a Batch API, then that resolver is whitelisted and dropped from the list of potential N+1 candidates.
 4. If the field has a resolver and is not batched, and the current path contains a list, then the current path is added to the result.
 5. Otherwise, we recursively traverse the graph data structure, updating the current path and visited fields as necessary.
 6. If a cycle is detected, return the cached result instead of re-traversing the path.

@@ -1,10 +1,21 @@
 import React from "react"
+import {pageLinks} from "./routes"
 
 export const githubRepoURL = "https://github.com/tailcallhq/tailcall"
 export const tailCallBenchmarkUrl = "https://github.com/tailcallhq/graphql-benchmarks#benchmark-results"
 export const tailCallBlogUrl = "https://blog.tailcall.run/"
 export const codeSandboxUrl = "https://codesandbox.io/p/github/tailcallhq/tailcall-sandbox/main"
 export const zapierLink = "https://hooks.zapier.com/hooks/catch/2793322/3a1gxp2/"
+export const playgroundAdsConversionId = "AW-16578154380/3FH_CJrawsgZEIyfiuE9"
+
+export enum cookieConstants {
+  USER_CONSENT = "userConsent",
+}
+
+export const algoliaConstants = {
+  categoryFacet: "category",
+  searchModalPlaceholder: "What do you want to know about graphql ?",
+}
 
 export const partnerImages: PartnerImage[] = [
   {
@@ -537,5 +548,87 @@ export const testimonials: CustomerFeedback[] = [
     designation: `Sr. Frontend Engineer - Big Co. Inc.`,
     name: "John Doe",
     department: "Ops",
+  },
+]
+
+export const blogTagsMapping: Record<string, BlogTag[]> = {
+  "Technologies and Frameworks": [
+    {label: "Angular", permalink: "/blog/tags/angular"},
+    {label: "Apollo client", permalink: "/blog/tags/apollo-client"},
+    {label: "JavaScript", permalink: "/blog/tags/java-script"},
+    {label: "Node.js", permalink: "/blog/tags/node-js"},
+    {label: "URQL", permalink: "/blog/tags/urql"},
+    {label: "Villus", permalink: "/blog/tags/villus"},
+    {label: "Vue", permalink: "/blog/tags/vue"},
+  ],
+  "Debugging and Tooling": [
+    {label: "debugging", permalink: "/blog/tags/debugging"},
+    {label: "IDE", permalink: "/blog/tags/ide"},
+    {label: "Tooling", permalink: "/blog/tags/tooling"},
+  ],
+  "API Concepts and Tools": [
+    {label: "API", permalink: "/blog/tags/api"},
+    {label: "Fetch API", permalink: "/blog/tags/fetch-api"},
+    {label: "GraphiQL", permalink: "/blog/tags/graphi-ql"},
+    {label: "GraphQL", permalink: "/blog/tags/graph-ql"},
+    {label: "OpenAPI", permalink: "/blog/tags/open-api"},
+    {label: "Microservice", permalink: "/blog/tags/microservice"},
+    {label: "Microservices", permalink: "/blog/tags/microservices"},
+    {label: "Backend-for-Frontend", permalink: "/blog/tags/backend-for-frontend"},
+  ],
+  "Schema and Introspection": [
+    {label: "Introspection", permalink: "/blog/tags/introspection"},
+    {label: "Schema", permalink: "/blog/tags/schema"},
+  ],
+  "General Terms": [
+    {label: "Performance", permalink: "/blog/tags/performance"},
+    {label: "Scalability", permalink: "/blog/tags/scalability"},
+    {label: "Security", permalink: "/blog/tags/security"},
+    {label: "Strategy", permalink: "/blog/tags/strategy"},
+    {label: "Migration", permalink: "/blog/tags/migration"},
+    {label: "Design", permalink: "/blog/tags/design"},
+    {label: "Flexibility", permalink: "/blog/tags/flexibility"},
+  ],
+  "Development Practices": [{label: "Best Practices", permalink: "/blog/tags/best-practices"}],
+}
+
+export enum CookiePreferenceCategory {
+  NECESSARY = "Necessary",
+  ANALYTICS = "Analytics",
+  PREFERENCE = "Preference",
+  MARKETING = "Marketing",
+}
+
+export const reb2bScriptContent = `
+!function () {var reb2b = window.reb2b = window.reb2b || [];
+    if (reb2b.invoked) return;reb2b.invoked = true;reb2b.methods = ["identify", "collect"];
+    reb2b.factory = function (method) {return function () {var args = Array.prototype.slice.call(arguments);
+    args.unshift(method);reb2b.push(args);return reb2b;};};
+    for (var i = 0; i < reb2b.methods.length; i++) {var key = reb2b.methods[i];reb2b[key] = reb2b.factory(key);}
+    reb2b.load = function (key) {var script = document.createElement("script");script.type = "text/javascript";script.async = true;
+    script.src = "https://s3-us-west-2.amazonaws.com/b2bjsstore/b/" + key + "/reb2b.js.gz";
+    var first = document.getElementsByTagName("script")[0];
+    first.parentNode.insertBefore(script, first);};
+    reb2b.SNIPPET_VERSION = "1.0.1";reb2b.load("0OV0VHL3P56Z");}();
+`
+export const gtagScriptContent = `
+function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-JEP3QDWT0G",{})
+`
+export const footerLinks: FooterLink[] = [
+  {
+    name: "Documentation",
+    link: pageLinks.docs,
+  },
+  {
+    name: "Blog",
+    link: tailCallBlogUrl,
+  },
+  {
+    name: "Contributors",
+    link: pageLinks.contributors,
+  },
+  {
+    name: "Privacy Policy",
+    link: pageLinks.privacyPolicy,
   },
 ]
